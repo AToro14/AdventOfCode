@@ -3,7 +3,7 @@ name: Python CI
 # When should the workflow run
 on:
   push:
-    branches: [ main, master ]
+    branches: [ main, master, 2024/Day01 ]
   pull_request:
     branches: [ main, master ]
 
