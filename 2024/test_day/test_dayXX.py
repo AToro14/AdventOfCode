@@ -1,4 +1,4 @@
-from .dayXX import solve_part1, solve_part2
+from .dayXX import solve_part1, solve_part2, solve_part3
 
 EXAMPLE_ARG_1 = 2
 EXAMPLE_ARG_2 = 5
