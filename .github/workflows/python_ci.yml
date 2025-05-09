@@ -33,4 +33,6 @@ jobs:
 
     - name: 4.5 Run tests
       run: |
-        pytest 2024/
+        pwd
+        ls 2024/
+        pytest 2024/ -v
