@@ -6,6 +6,9 @@ def solve_part1(a, b):
 def solve_part2(a, b):
     return (a + b) // (b - a)
 
+def solve_part3(a, b):
+    return (a * b) + (a - b)
+
 arg_1 = 2
 arg_2 = 5   
 
