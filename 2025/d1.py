@@ -1,12 +1,10 @@
-print("Hello world!")
-
-combo_lock = [x for x in range(0, 100)] 
+#combo_lock = [x for x in range(0, 100)] 
 last_position = 50
 current_position = last_position
 password = 0
 
-print(combo_lock)
-print('At position ', combo_lock[current_position])
+#print(combo_lock)
+#print('At position ', combo_lock[current_position])
 
 input_file = open('d1_input.txt', 'r')
 lines = input_file.readlines()
@@ -32,7 +30,6 @@ def track_passed_zeroes(direction, clicks, position, password, current_position)
             password += 1
             print('added 1 more going L for total of', password)
     elif direction == 'R':
-        print('(position + clicks) % 100 =', (position + clicks) % 100, 'and (100 - position)', (100 - position))
         if (100 - position) < (clicks % 100) and not position == 0:
             password += 1
             print('added 1 more going R for total of', password)
@@ -41,8 +38,6 @@ def track_passed_zeroes(direction, clicks, position, password, current_position)
 
     print('adding more for total of', password)
     return password
-
-#def track_all_zeroes(direction, clicks, position, password):
 
 def turn_dial(direction, clicks, position, password):
     if direction == 'L':
@@ -54,7 +49,6 @@ def turn_dial(direction, clicks, position, password):
     print('turn_dial() position', position)
     return position
 
-
 # Main loop
 count = 0
 print('Current position', current_position)
@@ -63,19 +57,15 @@ print('Current password', password)
 for line in lines:
     count += 1
     line = line.strip()
-    #print(line)
-    #find_direction(line)
-    #find_clicks(line)
     clicks = find_clicks(line)
     direction = find_direction(line)
+    
     print('last_position', last_position)
     print(clicks, 'clicks to the', direction)
     current_position = turn_dial(direction, clicks, last_position, password)
-    #position += find_steps(line)
     print('current_position', current_position)
     password = track_passed_zeroes(direction, clicks, last_position, password, current_position)
     password = track_landed_zero(current_position, password, clicks)
-    #print('Current position', position)
     last_position = current_position
     print('Current password', password)
     
