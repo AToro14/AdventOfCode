@@ -7,18 +7,29 @@ import (
 	"path/filepath"
 )
 
-func main() {
-	// dir, err := filepath.Abs(filepath.Dir(os.Args[0]))
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
-	// fmt.Println(dir)
-	fmt.Println(os.Args[0]) // This file
-	fileIn := filepath.Join(filepath.Dir(os.Args[0]), "test.txt")
-	fmt.Println(fileIn)
-	fileContents, err := os.ReadFile(fileIn)
-	if err != nil {
-		log.Fatal(err)
+func checkError(e error) {
+	if e != nil {
+		log.Fatal(e)
 	}
-	fmt.Println(string(fileContents))
+}
+
+func main() {
+	fmt.Println(os.Args[0]) // This file's path
+	fileIn := filepath.Join(filepath.Dir(os.Args[0]), "test.txt")
+	fmt.Println(fileIn) // Test file's path
+	fileContents, err := os.ReadFile(fileIn)
+	checkError(err)
+
+	floorNum := 0
+	for _, x := range fileContents {
+		switch x {
+		case 40: // '('
+			floorNum++
+		case 41: // ')'
+			floorNum--
+		default:
+			checkError(nil)
+		}
+	}
+	fmt.Printf("Floor Number: %d\n", floorNum)
 }
