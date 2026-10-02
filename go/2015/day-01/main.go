@@ -14,14 +14,14 @@ func checkError(e error) {
 }
 
 func main() {
-	fmt.Println(os.Args[0]) // This file's path
 	fileIn := filepath.Join(filepath.Dir(os.Args[0]), "test.txt")
-	fmt.Println(fileIn) // Test file's path
 	fileContents, err := os.ReadFile(fileIn)
 	checkError(err)
 
 	floorNum := 0
-	for _, x := range fileContents {
+	basementPosition := 0
+
+	for i, x := range fileContents {
 		switch x {
 		case 40: // '('
 			floorNum++
@@ -30,6 +30,11 @@ func main() {
 		default:
 			checkError(nil)
 		}
+		if basementPosition == 0 && floorNum == -1 {
+			basementPosition = i + 1
+		}
 	}
-	fmt.Printf("Floor Number: %d\n", floorNum)
+
+	fmt.Printf("Final Floor Number:\t\t%d\n", floorNum)
+	fmt.Printf("First Basement Position:\t%d\n", basementPosition)
 }
