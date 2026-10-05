@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"log"
 	"os"
@@ -28,7 +29,7 @@ func main() {
 		case 41: // ')'
 			floorNum--
 		default:
-			checkError(nil)
+			checkError(errors.New("Incorrect character"))
 		}
 		if basementPosition == 0 && floorNum == -1 {
 			basementPosition = i + 1
