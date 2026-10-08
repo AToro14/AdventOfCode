@@ -97,24 +97,24 @@ func main() {
 	fmt.Println(intDimListList)
 
 	var runningSurfaceArea int
+	var runningRibbonLength int
 	for _, list := range intDimListList {
 		// Calculate surface area
 		listSurfaceArea := 2*list[0]*list[1] + 2*list[0]*list[2] + 2*list[1]*list[2]
 		// Calculate slack
 		listSlackArea := list[0] * list[1]
+		// Calculate ribbon length
+		listRibbonLen := 2*list[0] + 2*list[1]
+		// Calculate bow length
+		listBowLen := list[0] * list[1] * list[2]
 		fmt.Printf("Surface Area = %d\tSlack Area = %d\n", listSurfaceArea, listSlackArea)
+		fmt.Printf("Ribbon Length = %d\tBow Length = %d\n", listRibbonLen, listBowLen)
 		runningSurfaceArea += listSurfaceArea + listSlackArea
+		runningRibbonLength += listRibbonLen + listBowLen
 	}
+
 	fmt.Println()
-	fmt.Printf("sqft needed: %d", runningSurfaceArea)
+	fmt.Printf("sqft needed: %d\n", runningSurfaceArea)
+	fmt.Printf("len needed: %d\n", runningRibbonLength)
 	fmt.Println()
-
-	a := 10
-	b := 14
-	fmt.Printf("a = %d\tb = %d\n", a, b)
-	a, b = swapInt(a, b)
-	fmt.Printf("a = %d\tb = %d\n", a, b)
-
-	// Sum
-
 }
