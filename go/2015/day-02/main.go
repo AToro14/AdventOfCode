@@ -24,13 +24,14 @@ func swapInt(a, b int) (A, B int) {
 }
 
 func main() {
-	fileIn := filepath.Join(filepath.Dir(os.Args[0]), "test.txt")
+	fileIn := filepath.Join(filepath.Dir(os.Args[0]), "input.txt")
 	fileContents, err := os.ReadFile(fileIn)
 	checkError(err)
 
 	// Line Format is #x#x#
 	fmt.Printf("%T\n", fileContents) // []uint8
 	// Get line from file
+	// Line -> String "#x#x#"
 	dimensions := ""
 	var strDimList []string //= make([]string, 2, 4)
 	for i, x := range fileContents {
@@ -52,6 +53,7 @@ func main() {
 	}
 	fmt.Println()
 
+	// Split string by 'x'
 	var strDimListList [][]string
 	for i, item := range strDimList {
 		lst := strings.Split(item, "x")
@@ -61,13 +63,15 @@ func main() {
 	fmt.Println(strDimListList)
 	fmt.Println()
 
+	// Check if all # are numbers
+	// Put into an int slice
 	var intDimListList [][]int
 	for _, list := range strDimListList {
 		var tempList []int
 		for _, num := range list {
-			fmt.Printf("%v is a %T\n", num, num)
+			// fmt.Printf("%v is a %T\n", num, num)
 			x, err := strconv.Atoi(num)
-			fmt.Printf("%v is a %T\n", x, x)
+			// fmt.Printf("%v is a %T\n", x, x)
 			checkError(err)
 			tempList = append(tempList, x)
 		}
@@ -78,6 +82,7 @@ func main() {
 	fmt.Println()
 	fmt.Println()
 	fmt.Println(intDimListList)
+	// Sort from least to greatest
 	for _, list := range intDimListList {
 		if list[0] > list[1] {
 			list[0], list[1] = swapInt(list[0], list[1])
@@ -85,9 +90,24 @@ func main() {
 		if list[0] > list[2] {
 			list[0], list[2] = swapInt(list[0], list[2])
 		}
+		if list[1] > list[2] {
+			list[1], list[2] = swapInt(list[1], list[2])
+		}
 	}
-
 	fmt.Println(intDimListList)
+
+	var runningSurfaceArea int
+	for _, list := range intDimListList {
+		// Calculate surface area
+		listSurfaceArea := 2*list[0]*list[1] + 2*list[0]*list[2] + 2*list[1]*list[2]
+		// Calculate slack
+		listSlackArea := list[0] * list[1]
+		fmt.Printf("Surface Area = %d\tSlack Area = %d\n", listSurfaceArea, listSlackArea)
+		runningSurfaceArea += listSurfaceArea + listSlackArea
+	}
+	fmt.Println()
+	fmt.Printf("sqft needed: %d", runningSurfaceArea)
+	fmt.Println()
 
 	a := 10
 	b := 14
@@ -95,13 +115,6 @@ func main() {
 	a, b = swapInt(a, b)
 	fmt.Printf("a = %d\tb = %d\n", a, b)
 
-	// Line -> String "#x#x#"
-	// Split string by 'x'
-	// Check if all # are numbers
-	// Put into an int slice
-	// Sort from least to greatest
-	// Calculate surface area
-	// Calculate slack
 	// Sum
 
 }
