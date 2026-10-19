@@ -22,8 +22,6 @@ func checkError(e error) {
 	}
 }
 
-func parseAngleBrackets() {}
-
 func main() {
 	fileIn := filepath.Join(filepath.Dir(os.Args[0]), "input.txt")
 	fileContents, err := os.ReadFile(fileIn)
@@ -36,7 +34,6 @@ func main() {
 	visited[currCoords] = struct{}{}
 	for _, x := range fileContents {
 		fmt.Printf("%d\n", x)
-		// replace with switch case
 		switch x {
 		case 94:
 			currPosY++
@@ -57,12 +54,6 @@ func main() {
 			visited[currCoords] = struct{}{}
 			housesVisited++
 		}
-		// fmt.Println(visited)
 	}
 	fmt.Printf("Number of houses visited:\t%d\n", housesVisited)
-	// fmt.Println(visited)
 }
-
-// direction inc or dec the current position
-// attempt to add current position to map
-// if the same don't add, we've been there before
