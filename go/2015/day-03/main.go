@@ -28,31 +28,57 @@ func main() {
 	checkError(err)
 	currPosX := 0
 	currPosY := 0
+	rCurrPosX := 0
+	rCurrPosY := 0
 	visited := make(map[coords]struct{})
 	housesVisited := 1
 	currCoords := coords{x: currPosX, y: currPosY}
+	// rCurrCords := coords{x: rCurrPosX, y: rCurrPosY}
 	visited[currCoords] = struct{}{}
+	instructionCount := 0
 	for _, x := range fileContents {
-		fmt.Printf("%d\n", x)
-		switch x {
-		case 94:
-			currPosY++
-		case 62:
-			currPosX++
-		case 118:
-			currPosY--
-		case 60:
-			currPosX--
-		default:
-			continue
-		}
-		currCoords := coords{x: currPosX, y: currPosY}
-		fmt.Println(currCoords)
-		fmt.Println(currPosX, "\t", currPosY)
+		instructionCount++
+		santa := instructionCount % 2
+		if santa == 0 {
+			switch x {
+			case 94:
+				currPosY++
+			case 62:
+				currPosX++
+			case 118:
+				currPosY--
+			case 60:
+				currPosX--
+			default:
+				instructionCount--
+				continue
+			}
+			currCoords := coords{x: currPosX, y: currPosY}
 
-		if _, ok := visited[currCoords]; !ok {
-			visited[currCoords] = struct{}{}
-			housesVisited++
+			if _, ok := visited[currCoords]; !ok {
+				visited[currCoords] = struct{}{}
+				housesVisited++
+			}
+		} else {
+			switch x {
+			case 94:
+				rCurrPosY++
+			case 62:
+				rCurrPosX++
+			case 118:
+				rCurrPosY--
+			case 60:
+				rCurrPosX--
+			default:
+				instructionCount--
+				continue
+			}
+			rCurrCoords := coords{x: rCurrPosX, y: rCurrPosY}
+
+			if _, ok := visited[rCurrCoords]; !ok {
+				visited[rCurrCoords] = struct{}{}
+				housesVisited++
+			}
 		}
 	}
 	fmt.Printf("Number of houses visited:\t%d\n", housesVisited)
